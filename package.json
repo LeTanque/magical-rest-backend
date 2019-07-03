@@ -1,12 +1,12 @@
 {
-  "name": "MTG-magical-backend",
+  "name": "mtg-magical-backend",
   "version": "1.0.0",
   "description": "Card database backend for MTG Magical",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "sqlite3": "^4.0.9"
   },
   "devDependencies": {
+    "knex-cleaner": "^1.1.4",
     "nodemon": "^1.19.1"
   }
 }
