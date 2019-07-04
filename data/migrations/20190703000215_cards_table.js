@@ -100,6 +100,9 @@ exports.up = function(knex, Promise) {
         // .enu('types', ["type1", "type2", "type3", "type4", "type5", "type6"]);
         
         cards
+        .string('variations');
+
+        cards
         .string('watermark')
 
         cards
