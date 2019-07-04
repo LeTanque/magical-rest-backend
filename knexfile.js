@@ -32,9 +32,10 @@ module.exports = {
     connection: productionDbConnection, // could be an object or a string
     migrations: {
       directory: './data/migrations',
+      tableName: 'knex_migrations',
     },
-    // seeds: {
-    //   directory: './data/seeds',
-    // },
+    seeds: {
+      directory: './data/seeds',
+    },
   },
 };
