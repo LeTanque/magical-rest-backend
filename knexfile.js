@@ -1,3 +1,4 @@
+require('dotenv').config(); // Import dotenv config
 const localPg = {
   host: 'localhost',
   database: 'cards',
@@ -26,7 +27,6 @@ module.exports = {
       directory: './data/seeds',
     }
   },
-
   production: {
     client: 'pg',
     connection: productionDbConnection, // could be an object or a string
