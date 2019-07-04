@@ -1,6 +1,6 @@
 const localPg = {
   host: 'localhost',
-  database: 'users',
+  database: 'cards',
   user: 'test',
   password: 'pass',
 };
@@ -30,12 +30,11 @@ module.exports = {
   production: {
     client: 'pg',
     connection: productionDbConnection, // could be an object or a string
-    migrations: {
-      directory: './data/migrations',
-    },
-    seeds: {
-      directory: './data/seeds',
-    },
+    // migrations: {
+    //   directory: './data/migrations',
+    // },
+    // seeds: {
+    //   directory: './data/seeds',
+    // },
   },
-
 };
