@@ -4,4 +4,4 @@ Card database backend for MTG Magical
 
 
 ## Netlify front end
-[https://mtg-magical.netlify.com/](Netlify)
+[Netlify](https://mtg-magical.netlify.com/)
