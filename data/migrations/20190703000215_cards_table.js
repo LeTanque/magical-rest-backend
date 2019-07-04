@@ -48,6 +48,9 @@ exports.up = function(knex, Promise) {
         .string('name')
 
         cards
+        .string('names')
+
+        cards
         .string('number')
 
         cards
@@ -96,6 +99,9 @@ exports.up = function(knex, Promise) {
         .string('types')
         // .enu('types', ["type1", "type2", "type3", "type4", "type5", "type6"]);
         
+        cards
+        .string('watermark')
+
         cards
         .timestamp('created_at')
         .defaultTo(knex.fn.now());

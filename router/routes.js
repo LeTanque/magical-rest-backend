@@ -49,5 +49,30 @@ routes.post('/cards', async (req, res) => {
 });
 
 
+// DESTROY card in database
+// Requires multiverse id
+routes.delete('/cards/:multiverseid', async (req, res) => {
+    // if (!req.body.multiverseid) { 
+    //     return res.status(400).json({ message:"Please include multiverse id to delete from collection" })}
+    try {
+        const card = await db('cards')
+        .where({ multiverseid: req.params.multiverseid })
+        .first();
+
+        const count = await db('cards')
+            .where({ multiverseid: req.params.multiverseid })
+            .del();
+        if (count > 0) {
+            res.status(200).json({message:"deleted", card:card }).end();
+        } else {
+            res.status(404).json({ message:"Card not found" });
+        }
+    } catch (error) {
+        const message = errors[error.errno] || "We ran into an error";
+        res.status(500).json({ message });
+    }
+});
+
+
 module.exports = routes;
 
