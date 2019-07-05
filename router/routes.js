@@ -1,6 +1,5 @@
 const environment = process.env.NODE_DB_ENV || 'development';
-// const dotenv = require("../server.js");
-
+console.log(process.env.NODE_DB_ENV)
 
 const knexConfig = require('../knexfile.js')[environment];
 const express = require('express');
