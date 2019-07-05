@@ -5,7 +5,7 @@ const localPg = {
   user: 'test',
   password: 'pass',
 };
-const productionDbConnection = process.env.DATABASE_URL || localPg;
+// const productionDbConnection = process.env.DATABASE_URL || localPg;
 
 module.exports = {
   development: {
@@ -29,7 +29,7 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: productionDbConnection, // could be an object or a string
+    connection: process.env.DATABASE_URL, 
     migrations: {
       directory: './data/migrations',
       tableName: 'knex_migrations',
