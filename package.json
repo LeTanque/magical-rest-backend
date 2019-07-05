@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
+    "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "npm install --production && knex migrate:latest"
   },
@@ -25,9 +26,6 @@
   },
   "homepage": "https://github.com/LeTanque/MTG-magical-backend#readme",
   "dependencies": {
-    "bluebird": "^3.5.5",
-    "bookshelf": "^0.15.1",
-    "bookshelf-json-columns": "^2.1.1",
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.17.1",

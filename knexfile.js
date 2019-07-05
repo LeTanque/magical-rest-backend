@@ -1,12 +1,13 @@
-const dotenv = require("./server.js");
+// const dotenv = require("./server.js");
 
 const localPg = {
-  host: dotenv.DB_HOST,
+  host: process.env.DB_HOST,
   database: 'cards',
   user: 'test',
   password: 'pass',
 };
-const productionDbConnection = dotenv.DATABASE_URL || localPg;
+const productionDbConnection = process.env.DATABASE_URL || localPg;
+
 
 module.exports = {
   development: {
