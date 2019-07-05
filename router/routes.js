@@ -36,12 +36,12 @@ routes.get('/cards', async (req, res) => {
 // Requires name and multiverse id
 routes.post('/cards', async (req, res) => {
     if (!req.body.name || !req.body.multiverseid) { 
-        console.log(req)
         return res.status(400).json({ message:"Please include a name and multiverse id to add to collection" })}
     try {
-        const [id] = await db('cards').insert(req.body);
+        console.log(req)
+        const [multiverseid] = await db('cards').insert(req.body);
         const card = await db('cards')
-            .where({ id })
+            .where({ multiverseid })
             .first();
         res.status(201).json(card);
     } catch (error) {
