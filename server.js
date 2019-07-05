@@ -1,7 +1,7 @@
 // require('dotenv').config(); 
 require('dotenv').config({ debug: true }); 
 
-const envPort = parseInt(process.env.NODE_PORT) || 1111; 
+const envPort = parseInt(process.env.PORT) || 1111; 
 
 const express = require('express'); // import the express package
 const cors = require('cors');
