@@ -1,10 +1,12 @@
-// handles urls beginning with /api.
-const express = require('express');
-const routes = express.Router();
-const knex = require('knex');
 const environment = process.env.DB_ENV || 'development';
-const knexConfig = require('../knexfile');
-const db = knex(knexConfig[environment]);
+
+const knexConfig = require('../knexfile')[environment];
+const express = require('express');
+
+const routes = express.Router();
+const db = require('knex')(knexConfig);
+// const knex = require('knex')(knexConfig);
+// knex(knexConfig[environment]);
 
 routes.use(express.json());
 
@@ -41,9 +43,9 @@ routes.post('/cards', async (req, res) => {
         console.log(req)
         const [multiverseid] = await db('cards').insert(req.body);
         const card = await db('cards')
-            .where({ multiverseid })
+            .where({ multiverseid:multiverseid })
             .first();
-        res.status(201).json(card);
+        return res.status(201).json(card);
     } catch (error) {
         const message = errors[error.errno] || "We ran into an error";
         res.status(500).json({ message });

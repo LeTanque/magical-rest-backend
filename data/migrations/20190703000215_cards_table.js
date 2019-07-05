@@ -70,7 +70,7 @@ exports.up = function(knex, Promise) {
         .string('rarity')
 
         cards
-        .json('rulings')
+        .string('rulings')
 
         cards
         .string('set')
