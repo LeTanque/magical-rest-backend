@@ -1,11 +1,12 @@
-require('dotenv').config(); // Import dotenv config
+const dotenv = require("./server.js");
+
 const localPg = {
-  host: 'localhost',
+  host: dotenv.DB_HOST,
   database: 'cards',
   user: 'test',
   password: 'pass',
 };
-// const productionDbConnection = process.env.DATABASE_URL || localPg;
+const productionDbConnection = dotenv.DATABASE_URL || localPg;
 
 module.exports = {
   development: {
@@ -29,7 +30,7 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL, 
+    connection: productionDbConnection, 
     migrations: {
       directory: './data/migrations',
       tableName: 'knex_migrations',

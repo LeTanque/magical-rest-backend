@@ -1,12 +1,13 @@
-const environment = process.env.DB_ENV || 'development';
+// const environment = process.env.DB_ENV || 'development';
+const dotenv = require("../server.js");
 
-const knexConfig = require('../knexfile')[environment];
+
+const knexConfig = require('../knexfile.js')[dotenv.DB_ENV];
 const express = require('express');
 
 const routes = express.Router();
 const db = require('knex')(knexConfig);
-// const knex = require('knex')(knexConfig);
-// knex(knexConfig[environment]);
+
 
 routes.use(express.json());
 
