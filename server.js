@@ -2,7 +2,7 @@
 // require('dotenv').config(); 
 const dotenv = require('dotenv').config().parsed; 
 // const envPort = 1111;
-const envPort = process.env.PORT || dotenv.PORT || 1111; 
+const envPort = process.env.PORT || 1111; 
 // console.log(dotenv.parsed.PORT)
 module.exports = dotenv
 
