@@ -40,7 +40,7 @@ exports.up = function(knex, Promise) {
         cards
         .string('power', 255);
         cards
-        .string('printings', 255);
+        .text('printings');
         cards
         .string('rarity', 255);
         cards
@@ -50,9 +50,9 @@ exports.up = function(knex, Promise) {
         cards
         .string('setName', 255);
         cards
-        .string('subtypes', 255);
+        .text('subtypes');
         cards
-        .string('supertypes', 255);
+        .text('supertypes');
         cards
         .string('text', 255);
         cards
@@ -60,7 +60,7 @@ exports.up = function(knex, Promise) {
         cards
         .string('type', 255);
         cards
-        .string('types', 255);        
+        .text('types');        
         cards
         .string('variations', 255);
         cards
