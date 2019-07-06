@@ -57,14 +57,14 @@ routes.post('/cards', async (req, res) => {
 
 // DESTROY card in database
 // Requires multiverse id
-routes.delete('/cards/:multiverseid', async (req, res) => {
+routes.delete('/cards/:id', async (req, res) => {
     try {
         const card = await db('cards')
-        .where({ multiverseid: req.params.multiverseid })
+        .where({ id: req.params.id })
         .first();
 
         const count = await db('cards')
-            .where({ multiverseid: req.params.multiverseid })
+            .where({ id: req.params.id })
             .del();
         if (count > 0) {
             res.status(200).json({message:"deleted", card:card }).end();
