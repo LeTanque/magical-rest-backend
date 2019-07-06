@@ -1,5 +1,4 @@
-const environment = process.env.NODE_DB_ENV || 'development';
-console.log(process.env.NODE_DB_ENV)
+const environment = 'development';
 
 const knexConfig = require('../knexfile.js')[environment];
 const express = require('express');
@@ -36,18 +35,22 @@ routes.get('/cards', async (req, res) => {
 // POST card to database
 // Requires name and multiverse id
 routes.post('/cards', async (req, res) => {
-    if (!req.body.name || !req.body.multiverseid) { 
-        return res.status(400).json({ message:"Please include a name and multiverse id to add to collection" })}
+    if (!req.body.multiverseid) { return res.status(400).json({ message:"Please include a multiverseid" })}
     try {
-        console.log(req)
-        const [multiverseid] = await db('cards').insert(req.body);
+        const lookForExistingCard = await db('cards')
+        .where({ multiverseid:req.body.multiverseid })
+        .first();
+        if(lookForExistingCard) {
+            return res.status(400).json({ message:"Card with ID already exists" })
+        }
+
         const card = await db('cards')
-            .where({ multiverseid:multiverseid })
-            .first();
-        return res.status(201).json(card);
+        .returning(['name', 'multiverseid'])
+        .insert(req.body);
+        return res.status(200).json({message:"Card inserted!", card:card});    
     } catch (error) {
         const message = errors[error.errno] || "We ran into an error";
-        res.status(500).json({ message });
+        res.status(500).json({ message:message, error:error });
     }
 });
 
@@ -55,8 +58,6 @@ routes.post('/cards', async (req, res) => {
 // DESTROY card in database
 // Requires multiverse id
 routes.delete('/cards/:multiverseid', async (req, res) => {
-    // if (!req.body.multiverseid) { 
-    //     return res.status(400).json({ message:"Please include multiverse id to delete from collection" })}
     try {
         const card = await db('cards')
         .where({ multiverseid: req.params.multiverseid })

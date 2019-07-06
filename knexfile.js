@@ -1,24 +1,20 @@
-// const dotenv = require("./server.js");
 
-const localPg = {
-  host: process.env.DB_HOST,
-  database: 'cards',
-  user: 'test',
-  password: 'pass',
-};
-const productionDbConnection = process.env.DATABASE_URL || localPg;
+const productionDbConnection = process.env.DATABASE_URL || process.env.NODE_PG_DB || "localhost";
+
+// console.log(process.env.NODE_PG_DB)
 
 
 module.exports = {
   development: {
-    client: 'sqlite3',
+    client: 'postgresql',
     connection: {
-      filename: './data/cardDb.sqlite3'
+      database: 'mtg-magical',
+      user:     'test',
+      password: 'pass'
     },
     pool: {
-      afterCreate: (conn, done) => {
-        conn.run('PRAGMA foreign_keys = ON', done);
-      },
+      min: 2,
+      max: 10
     },
     migrations: {
       directory: './data/migrations',

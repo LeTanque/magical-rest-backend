@@ -1,10 +1,12 @@
 // require('dotenv').config(); // Import dotenv config
-const dotenv = require("../server.js");
+// const dotenv = require("../server.js");
+// const environment = process.env.NODE_PG_DB || 'development';
 
-const environment = dotenv.NODE_DB_ENV || 'development';
+const enviro = 'development';
 
-const config = require('../knexfile.js')[environment];
+const config = require('../knexfile.js')[enviro];
 const knex = require('knex')(config);
 
+console.log(knex)
 
 module.exports = knex;

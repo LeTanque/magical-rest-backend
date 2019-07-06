@@ -1,7 +1,8 @@
-// require('dotenv').config(); 
-require('dotenv').config({ debug: true }); 
+require('dotenv').config({ 
+  debug: true 
+}); 
 
-const envPort = parseInt(process.env.PORT) || 1111; 
+const envPort = 3333; 
 
 const express = require('express'); // import the express package
 const cors = require('cors');
@@ -9,8 +10,6 @@ const helmet = require('helmet');
 
 const routes = require('./router/routes.js');
 // const addCard = require('./router/addCard.js');
-
-
 
 const server = express(); // creates the server
 
@@ -32,9 +31,9 @@ server.all('/', (req, res, next) => {
   );
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
   res.header("Access-Control-Allow-Credentials", true); 
-  if (req.method === "OPTIONS") {
-      return res.sendStatus(204);
-  }
+  // if (req.method === "OPTIONS") {
+  //     return res.sendStatus(204);
+  // }
   next();
 })
 
@@ -54,7 +53,7 @@ server.listen(envPort, () =>
 
 
 
-// server.use('/', addCard);
+
 
 
 
