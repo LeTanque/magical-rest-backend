@@ -44,7 +44,7 @@ exports.up = function(knex, Promise) {
         cards
         .string('rarity', 255);
         cards
-        .string('rulings', 255);
+        .text('rulings');
         cards
         .string('set', 255);
         cards
