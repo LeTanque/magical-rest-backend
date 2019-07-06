@@ -54,7 +54,7 @@ exports.up = function(knex, Promise) {
         cards
         .text('supertypes');
         cards
-        .string('text', 255);
+        .text('text');
         cards
         .string('toughness', 255);
         cards
