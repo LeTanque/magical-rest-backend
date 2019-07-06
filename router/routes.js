@@ -33,9 +33,9 @@ routes.get('/cards', async (req, res) => {
 
 
 // POST card to database
-// Requires name and multiverse id
+// Requires id
 routes.post('/cards', async (req, res) => {
-    if (!req.body.multiverseid) { return res.status(400).json({ message:"Please include a multiverseid" })}
+    if (!req.body.id) { return res.status(400).json({ message:"Please include an id" })}
     try {
         const lookForExistingCard = await db('cards')
         .where({ multiverseid:req.body.multiverseid })
