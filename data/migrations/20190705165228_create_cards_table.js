@@ -60,7 +60,7 @@ exports.up = function(knex, Promise) {
 
         cards.text('types');        
 
-        cards.text('variations');
+        cards.string('variations', 255);
 
         cards.string('watermark', 255);
 
