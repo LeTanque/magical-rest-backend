@@ -2,7 +2,7 @@ require('dotenv').config({
   debug: true 
 }); 
 
-const envPort = 3333; 
+const envPort = process.env.PORT || 3131; 
 
 const express = require('express'); // import the express package
 const cors = require('cors');

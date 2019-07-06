@@ -1,4 +1,4 @@
-const environment = 'development';
+const environment = process.env.NODE_DB_ENV || 'development';
 
 const knexConfig = require('../knexfile.js')[environment];
 const express = require('express');
