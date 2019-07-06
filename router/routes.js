@@ -38,14 +38,14 @@ routes.post('/cards', async (req, res) => {
     if (!req.body.id) { return res.status(400).json({ message:"Please include an id" })}
     try {
         const lookForExistingCard = await db('cards')
-        .where({ multiverseid:req.body.multiverseid })
+        .where({ id:req.body.id })
         .first();
         if(lookForExistingCard) {
             return res.status(400).json({ message:"Card with ID already exists" })
         }
 
         const card = await db('cards')
-        .returning(['name', 'multiverseid'])
+        .returning(['name', 'id'])
         .insert(req.body);
         return res.status(200).json({message:"Card inserted!", card:card});    
     } catch (error) {
