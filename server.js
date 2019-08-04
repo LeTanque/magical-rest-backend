@@ -1,15 +1,18 @@
+import express from 'express';
+
 require('dotenv').config({ 
   debug: true 
 }); 
 
 const envPort = process.env.PORT || 3131; 
 
-const express = require('express'); // import the express package
+
+// const express = require('express'); // import the express package
 const cors = require('cors');
 const helmet = require('helmet'); 
 
 const routes = require('./router/routes.js');
-// const addCard = require('./router/addCard.js');
+
 
 const server = express(); // creates the server
 
@@ -24,16 +27,12 @@ server.use('/', routes);
 // Applies to all connections
 server.all('/', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  // res.header("Access-Control-Allow-Origin", CLIENT_ORIGIN);
   res.header(
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
   );
   res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
   res.header("Access-Control-Allow-Credentials", true); 
-  // if (req.method === "OPTIONS") {
-  //     return res.sendStatus(204);
-  // }
   next();
 })
 
@@ -41,7 +40,7 @@ server.all('/', (req, res, next) => {
 // handle requests to the root of the api, the / route
 server.get('/', (req, res) => {
   res.send(`
-    <h2>MTG Magical Backend?</h2>
+    <h2>MTG Magical Backend</h2>
   `);
 });
 

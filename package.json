@@ -4,8 +4,8 @@
   "description": "Card database backend for MTG Magical",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "server": "nodemon server.js",
+    "start": "node -r esm server.js",
+    "server": "nodemon -r esm server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "npm install --production && knex migrate:latest"
   },
@@ -27,6 +27,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^8.0.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "helmet": "^3.18.0",
     "knex": "^0.18.2",
