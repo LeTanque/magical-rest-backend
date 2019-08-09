@@ -1,11 +1,16 @@
+import express from 'express';
+// import db from 'knex';
+
+
 const environment = process.env.NODE_DB_ENV || 'development';
-
 const knexConfig = require('../knexfile.js')[environment];
-const express = require('express');
-
-const routes = express.Router();
 const db = require('knex')(knexConfig);
 
+
+// console.log("knexConfig: \n\n", knexConfig, "\n\n db: \n\n", db)
+
+
+const routes = express.Router();
 routes.use(express.json());
 
 
@@ -78,5 +83,5 @@ routes.delete('/cards/:id', async (req, res) => {
 });
 
 
-module.exports = routes;
+export default routes;
 

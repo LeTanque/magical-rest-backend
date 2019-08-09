@@ -3,15 +3,13 @@ const productionDbConnection = process.env.DATABASE_URL || process.env.NODE_PG_D
 
 module.exports = {
   development: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'mtg-magical',
-      user:     'test',
-      password: 'pass'
-    },
-    pool: {
-      min: 2,
-      max: 10
+      host : '127.0.0.1',
+      user : 'postgrease',
+      password : 'slick',
+      database : 'mtg-magical',
+      charset: 'utf8'
     },
     migrations: {
       directory: './data/migrations',
