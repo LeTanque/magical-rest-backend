@@ -73,7 +73,7 @@ exports.up = function(knex, Promise) {
 }
 
 exports.down = function(knex, Promise) {
-    return knex.schema.dropTable('cards');
+    return knex.schema.dropTableIfExists('cards');
 }
 
 
