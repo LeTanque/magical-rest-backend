@@ -1,21 +1,25 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
+// const dotenv = require("dotenv")
+// dotenv.config({ path:'./.env', debug: true });
+// console.log('PORT NODE_ENV DB_FILE DATABASE_URL', 
+// "\n ---> ", process.env.PORT, 
+// "\n ---> ", process.env.DB_ENV,
+// "\n ---> ", process.env.DB_FILE,
+// "\n ---> ", process.env.DATABASE_URL);
 
-import routes from './router/routes';
 
 
-require('dotenv').config({ 
-  debug: true 
-}); 
-
-const envPort = process.env.PORT || 3131; 
+const express = require("express");
+const helmet = require("helmet");
+const cors = require("cors");
+const routes = require("./router/routes.js");
 const server = express(); // creates the server
 
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
-server.use('/', routes);  // Connect / to the routes
+
+
+
 
 
 // Applies to all connections
@@ -25,29 +29,36 @@ server.all('/', (req, res, next) => {
       "Access-Control-Allow-Headers",
       "Origin, X-Requested-With, Content-Type, Accept"
   );
-  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,PATCH,DELETE");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE");
   res.header("Access-Control-Allow-Credentials", true); 
   next();
 })
 
 
 
-
-
 // handle requests to the root of the api, the / route
-server.get('/', (req, res) => {
+server.all('/', (req, res) => {
   res.send(`
-    <h2>MTG Magical Backend</h2>
+    <body style="background-color:#131313; color:#fafafa">
+      <code>  
+        <h1>Welcome to Magical</h1>
+        <h5>${req.method} request recieved</h5>
+      </code>
+    </body>
   `);
 });
 
 
-// watch for connections on port 3333
+
+// Endpoints
+server.use('/', routes);  // Connect / to the routes
+
+
+
+// hello
+const envPort = process.env.PORT || 3131; 
 server.listen(envPort, () =>
   console.log(`BOO YEAH! ${envPort}`)
 );
 
 
-
-
-// console.log("processenv everything from Node: ", process.env, process.env.NODE_DB_ENV)

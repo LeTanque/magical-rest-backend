@@ -2,7 +2,7 @@ exports.up = function(knex, Promise) {
     return knex.schema.createTable('cards', (cards) => {
         cards.string('id').unique();
 
-        cards.string('artist', 255);
+        cards.text('artist');
 
         cards.integer('cmc');
 
@@ -10,43 +10,43 @@ exports.up = function(knex, Promise) {
 
         cards.text('colors')
 
-        cards.string('flavor', 255);
+        cards.text('flavor');
 
         cards.text('foreignNames');
 
-        cards.string('imageUrl', 255);
+        cards.text('imageUrl');
 
-        cards.string('layout', 255);
+        cards.text('layout');
 
         cards.text('legalities');
 
-        cards.string('loyalty', 255);
+        cards.text('loyalty');
 
-        cards.string('manaCost', 255);
+        cards.text('manaCost');
 
         cards.integer('multiverseid');
 
-        cards.string('name', 255);
+        cards.text('name');
 
-        cards.string('names', 255);
+        cards.text('names');
 
-        cards.string('number', 255);
+        cards.text('number');
 
         cards.text('originalText');
 
-        cards.string('originalType', 255);
+        cards.text('originalType');
 
-        cards.string('power', 255);
+        cards.text('power');
 
         cards.text('printings');
 
-        cards.string('rarity', 255);
+        cards.text('rarity');
 
         cards.text('rulings');
 
-        cards.string('set', 255);
+        cards.text('set');
 
-        cards.string('setName', 255);
+        cards.text('setName');
 
         cards.text('subtypes');
 
@@ -54,15 +54,15 @@ exports.up = function(knex, Promise) {
 
         cards.text('text');
 
-        cards.string('toughness', 255);
+        cards.text('toughness');
 
-        cards.string('type', 255);
+        cards.text('type');
 
         cards.text('types');        
 
-        cards.string('variations', 255);
+        cards.text('variations');
 
-        cards.string('watermark', 255);
+        cards.text('watermark');
 
 
         cards.timestamp('created_at').defaultTo(knex.fn.now());

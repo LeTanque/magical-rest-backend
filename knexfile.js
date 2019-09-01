@@ -1,16 +1,20 @@
-const productionDbConnection = process.env.DATABASE_URL || process.env.NODE_PG_DB;
+// REQUIRED FOR KNEXFILE TO ACKNOWLEDGE ENV WITH LOCAL MIGRATIONS
+// const dotenv = require("dotenv");
+// dotenv.config({ debug: true });
+// console.log('PORT NODE_ENV DB_FILE DATABASE_URL', 
+// "\n ---> ", process.env.PORT, 
+// "\n ---> ", process.env.DB_ENV,
+// "\n ---> ", process.env.DB_FILE,
+// "\n ---> ", process.env.DATABASE_URL);
+
+
+const dbConnection = process.env.DATABASE_URL || "localhost";
 
 
 module.exports = {
   development: {
     client: 'pg',
-    connection: {
-      host : '127.0.0.1',
-      user : 'postgrease',
-      password : 'slick',
-      database : 'mtg-magical',
-      charset: 'utf8'
-    },
+    connection: dbConnection,
     migrations: {
       directory: './data/migrations',
       tableName: 'knex_migrations',
@@ -22,7 +26,7 @@ module.exports = {
   },
   production: {
     client: 'pg',
-    connection: productionDbConnection, 
+    connection: dbConnection, 
     migrations: {
       directory: './data/migrations',
       tableName: 'knex_migrations',
@@ -33,3 +37,6 @@ module.exports = {
     useNullAsDefault: true
   },
 };
+
+
+

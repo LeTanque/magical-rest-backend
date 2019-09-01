@@ -1,25 +1,16 @@
-import express from 'express';
-// import db from 'knex';
+const express = require('express');
+// import express from 'express';
 
+const routes = express.Router();
 
-const environment = process.env.NODE_DB_ENV || 'development';
-const knexConfig = require('../knexfile.js')[environment];
-const db = require('knex')(knexConfig);
+const db = require("../connection.js");
 
+import { errorObject,errorBackup } from "./errorHandling.js";
+
+routes.use(express.json());
 
 // console.log("knexConfig: \n\n", knexConfig, "\n\n db: \n\n", db)
 
-
-const routes = express.Router();
-routes.use(express.json());
-
-
-const errors = { // Dynamic error messaging based on sqlite codes
-    '1': 'We ran into an error.',
-    '4': 'Operation aborted',
-    '9': 'Operation aborted',
-    '19': 'Another card with that value exists, yo!'
-};
 
 
 // Get all stored cards
@@ -27,7 +18,7 @@ routes.get('/cards', async (req, res) => {
     try {
         const allCards = await db('cards');
         if(allCards.length === 0) {
-            return res.status(200).json({message:"No cards found"});
+            return res.status(200).json({ message:"No cards found" });
         }
         res.status(200).json(allCards);
     } 
@@ -35,6 +26,7 @@ routes.get('/cards', async (req, res) => {
         res.status(500).json({ message: "Cards could not be retrieved.", error:error });
     }
 });
+
 
 
 // POST card to database
@@ -52,12 +44,13 @@ routes.post('/cards', async (req, res) => {
         const card = await db('cards')
         .returning(['name', 'id'])
         .insert(req.body);
-        return res.status(200).json({message:"Card inserted!", card:card});    
+        return res.status(200).json({ message:"Card inserted!", card:card });    
     } catch (error) {
-        const message = errors[error.errno] || "We ran into an error";
-        res.status(500).json({ message:message, error:error });
+        const message = errorObject[error.errno] || errorBackup;
+        res.status(500).json({ message, error });
     }
 });
+
 
 
 // DESTROY card in database
@@ -77,11 +70,11 @@ routes.delete('/cards/:id', async (req, res) => {
             res.status(404).json({ message:"Card not found" });
         }
     } catch (error) {
-        const message = errors[error.errno] || "We ran into an error";
-        res.status(500).json({ message });
+        const message = errorObject[error.errno] || errorBackup;
+        res.status(500).json({ message, error });
     }
 });
 
 
-export default routes;
-
+// export default routes;
+module.exports = routes;
