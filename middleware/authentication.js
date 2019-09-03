@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
             if (error) {
                 res.status(401).json({ error: "Token refused" });
             } else {
-                console.log("Access granted", decodedToken);
                 res.decodedToken = decodedToken;
                 next();
             }

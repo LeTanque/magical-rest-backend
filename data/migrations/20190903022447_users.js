@@ -1,6 +1,6 @@
 exports.up = (knex) => {
     return knex.schema.createTable("users", (users) => {
-        users.increments();
+        users.increments("id");
 
         users
             .string("username", 255)
@@ -9,7 +9,11 @@ exports.up = (knex) => {
 
         users
             .string("password", 255)
-            .notNullable()
+            .notNullable();
+
+        users
+            .string("user_type", 255)
+            .defaultTo("user");
 
         users.timestamp("created_at").defaultTo(knex.fn.now());
     })
@@ -18,5 +22,4 @@ exports.up = (knex) => {
 exports.down = (knex) => {
     return knex.schema.dropTableIfExists("users");
 }
-
 

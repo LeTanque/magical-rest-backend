@@ -8,13 +8,24 @@ const users = express.Router();
 
 
 users.get("/", async (req, res) => {
-    await db("users")
-        .then(allUsers => {
-            res.status(200).json(allUsers);
-        })
-        .catch(error => {
-            res.status(500).json({ message: "could not retrieve users", error });
-        });
+    if (res.decodedToken.user_type === "admin") {
+        await db("users")
+            .then(allUsers => {
+                res.status(200).json(allUsers);
+            })
+            .catch(error => {
+                res.status(500).json({ message: "Could not retrieve users.", error });
+            });
+    } else {
+        await db("users")
+            .where({ id: res.decodedToken.id})
+            .then(loggedInUser => {
+                res.status(200).json(loggedInUser);
+            })
+            .catch(error => {
+                res.status(500).json({ message: "Could not retrieve user.", error });
+            })
+    }
 });
 
 

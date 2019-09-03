@@ -11,7 +11,7 @@ const router = express.Router(); // Mini app
 // Endpoints
 router.use("/v1/auth", auth); // Handles register and login
 router.use("/v1/users", authenticate, users); // Handles register and login
-router.use('/v1/cards', cards);  // Handles card requests
+router.use('/v1/cards', authenticate, cards);  // Handles card requests
 
 
 
