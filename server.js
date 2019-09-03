@@ -1,24 +1,14 @@
-// const dotenv = require("dotenv")
-// dotenv.config({ path:'./.env', debug: true });
-// console.log('PORT NODE_ENV DB_FILE DATABASE_URL', 
-// "\n ---> ", process.env.PORT, 
-// "\n ---> ", process.env.DB_ENV,
-// "\n ---> ", process.env.DB_FILE,
-// "\n ---> ", process.env.DATABASE_URL);
+import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
 
-
-
-const express = require("express");
-const helmet = require("helmet");
-const cors = require("cors");
 const routes = require("./router/routes.js");
 const server = express(); // creates the server
+const envPort = process.env.PORT || 3131; 
 
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
-
-
 
 
 
@@ -49,16 +39,13 @@ server.all('/', (req, res) => {
 });
 
 
-
-// Endpoints
-server.use('/', routes);  // Connect / to the routes
-
-
-
 // hello
-const envPort = process.env.PORT || 3131; 
 server.listen(envPort, () =>
   console.log(`BOO YEAH! ${envPort}`)
 );
 
+
+// Router
+// server.use("/v1/auth", authRouter); // Handles register and login
+server.use('/', routes);  // Connect / to the routes
 
