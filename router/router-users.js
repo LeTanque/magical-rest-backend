@@ -11,7 +11,11 @@ users.get("/", async (req, res) => {
     if (res.decodedToken.user_type === "admin") {
         await db("users")
             .then(allUsers => {
-                res.status(200).json(allUsers);
+                res.status(200).json({
+                    users: allUsers,
+                    username: res.decodedToken.username,
+                    user_type: res.decodedToken.user_type
+                });
             })
             .catch(error => {
                 res.status(500).json({ message: "Could not retrieve users.", error });
@@ -20,7 +24,10 @@ users.get("/", async (req, res) => {
         await db("users")
             .where({ id: res.decodedToken.id})
             .then(loggedInUser => {
-                res.status(200).json(loggedInUser);
+                res.status(200).json({
+                    username: loggedInUser.username,
+                    user_type: loggedInUser.user_type
+                });
             })
             .catch(error => {
                 res.status(500).json({ message: "Could not retrieve user.", error });
