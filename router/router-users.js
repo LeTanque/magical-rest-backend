@@ -13,6 +13,7 @@ users.get("/", async (req, res) => {
             .then(allUsers => {
                 res.status(200).json({
                     users: allUsers,
+                    id: res.decodedToken.id,
                     username: res.decodedToken.username,
                     user_type: res.decodedToken.user_type
                 });
@@ -22,11 +23,13 @@ users.get("/", async (req, res) => {
             });
     } else {
         await db("users")
-            .where({ id: res.decodedToken.id})
+            .where({ id: res.decodedToken.id })
             .then(loggedInUser => {
                 res.status(200).json({
-                    username: loggedInUser.username,
-                    user_type: loggedInUser.user_type
+                    user: loggedInUser,
+                    id: res.decodedToken.id,
+                    username: res.decodedToken.username,
+                    user_type: res.decodedToken.user_type
                 });
             })
             .catch(error => {
