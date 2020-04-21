@@ -5,20 +5,19 @@ import { errorObject,errorBackup } from "../middleware/errorHandling.js";
 const deckRoutes = express.Router();
 
 
-
-
-
 // GET DECKS
 deckRoutes.get("/", async (req, res) => {
+    // console.log("decodedToken in router-decks ---> ", res.decodedToken)
     try {
-        const allDecks = await db("decks")
+        const allDecksByUser = await db("decks")
             .where({
                 user_id: res.decodedToken.id 
             });
-        if(allDecks.length === 0) {
-            return res.status(404).json({ message: "No decks found!" });
-        }
-        res.status(200).json(allDecks);
+        // console.log("all decks in router-decks ---> ", allDecksByUser)
+        // if(allDecksByUser.length === 0) {
+        //     return res.status(404).json({ message: "No decks found!" });
+        // }
+        res.status(200).json(allDecksByUser);
     } 
     catch (error) {
         res.status(500).json({ message: "Decks could not be retrieved.", error:error });
@@ -27,34 +26,36 @@ deckRoutes.get("/", async (req, res) => {
 
 
 
-// // POST DECKS
-// deckRoutes.post("/", async (req, res) => {
-//     if (!req.body.name) { return res.status(400).json({ message: "Please include an id" })}
+// POST DECKS
+deckRoutes.post("/", async (req, res) => {
+    if (!req.body.name) { return res.status(400).json({ message: "Please include a name for the deck." })}
 
-//     try {
-//         const lookForExistingDeck = await db("decks")
-//             .where({ 
-//                 name: req.body.name,
-//                 user_id: res.decodedToken.id 
-//             });
-//         if(lookForExistingDeck) {
-//             return res.status(400).json({ message: "Deck with ID already exists" })
-//         }
+    const existingDeck = await db("decks")
+        .where({ 
+            name: req.body.name,
+            user_id: res.decodedToken.id 
+        })
+    if(existingDeck.length > 0) {
+        return res.status(400).json({ message: "Deck with ID already exists" })
+    }
 
-//         const deck = await db("decks")
-//             .returning(["name", "id", "user_id", "description"])
-//             .insert({
-//                 name: req.body.name,
-//                 description: req.body.description,
-//                 image_url: req.body.imageUrl,
-//                 user_id: res.decodedToken.id,
-//             });
-//         return res.status(200).json({ message: "Deck inserted!", deck });    
-//     } catch (error) {
-//         const message = errorObject[error.errno] || errorBackup;
-//         res.status(500).json({ message, error });
-//     }
-// });
+    try {
+        const deckObject = {
+            name: req.body.name,
+            description: req.body.description ? req.body.description : "",
+            image_url: req.body.imageUrl ? req.body.imageUrl : "",
+            user_id: res.decodedToken.id
+        }
+        const deck = await db("decks")
+            .returning(["id", "user_id", "name", "description", "image_url" ])
+            .insert(deckObject);
+        
+        return res.status(200).json({ message: "Deck inserted!", deck });    
+    } catch (error) {
+        const message = errorObject[error.errno] || errorBackup;
+        res.status(500).json({ message, error });
+    }
+});
 
 
 

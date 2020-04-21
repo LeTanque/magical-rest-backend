@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node -r esm server.js",
     "server": "nodemon -r dotenv/config -r esm server.js",
-    "card-server": "nodemon -r dotenv/config -r esm server.js",
     "heroku-postbuild": "npm install --production && knex migrate:latest",
     "build": "next build"
   },
