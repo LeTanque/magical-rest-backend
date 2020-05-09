@@ -1,10 +1,10 @@
-import express from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
-import db from "../connection.js";
-import hashPassword from "../middleware/hashPassword.js";
-import { errorObject,errorBackup } from "../middleware/errorHandling.js";
+const db = require("../connection.js");
+const hashPassword = require("../middleware/hashPassword.js");
+const { errorObject,errorBackup } = require("../middleware/errorHandling.js");
 
 const auth = express.Router();
 
@@ -60,9 +60,6 @@ auth.post("/register", hashPassword, async (req, res) => {
     }
 })
 
-
-
-
 auth.post("/login", async (req, res) => {
     if (!req.body || !req.body.username || !req.body.password) {
         return res.status(400).json({ message:"Must include username and password" })
@@ -94,4 +91,4 @@ auth.post("/login", async (req, res) => {
     }
 })
 
-export default auth;
+module.exports = auth;

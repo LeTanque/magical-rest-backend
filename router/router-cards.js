@@ -1,11 +1,8 @@
-import express from "express";
-import db from "../connection.js";
-import { errorObject,errorBackup } from "../middleware/errorHandling.js";
+const express = require("express");
+const db = require("../connection.js");
+const { errorObject,errorBackup } = require("../middleware/errorHandling.js");
 
 const cards = express.Router();
-
-
-
 
 
 // Get all stored cards
@@ -21,8 +18,6 @@ cards.get('/', async (req, res) => {
         res.status(500).json({ message: "Cards could not be retrieved.", error:error });
     }
 });
-
-
 
 // POST card to database
 // Requires id
@@ -46,8 +41,6 @@ cards.post('/', async (req, res) => {
     }
 });
 
-
-
 // DESTROY card in database
 // Requires multiverse id
 cards.delete('/:id', async (req, res) => {
@@ -70,5 +63,4 @@ cards.delete('/:id', async (req, res) => {
     }
 });
 
-
-export default cards;
+module.exports = cards;

@@ -1,10 +1,7 @@
-import express from "express";
-import db from "../connection.js";
-
+const express = require("express");
+const db = require("../connection.js");
 
 const users = express.Router();
-
-
 
 
 users.get("/", async (req, res) => {
@@ -38,9 +35,4 @@ users.get("/", async (req, res) => {
     }
 });
 
-
-
-
-
-export default users;
-
+module.exports = users;

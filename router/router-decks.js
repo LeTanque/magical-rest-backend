@@ -1,6 +1,6 @@
-import express from "express";
-import db from "../connection.js";
-import { errorObject,errorBackup } from "../middleware/errorHandling.js";
+const express = require("express");
+const db = require("../connection.js");
+const { errorObject,errorBackup } = require("../middleware/errorHandling.js");
 
 const deckRoutes = express.Router();
 
@@ -23,8 +23,6 @@ deckRoutes.get("/", async (req, res) => {
         res.status(500).json({ message: "Decks could not be retrieved.", error:error });
     }
 });
-
-
 
 // POST DECKS
 deckRoutes.post("/", async (req, res) => {
@@ -57,8 +55,6 @@ deckRoutes.post("/", async (req, res) => {
     }
 });
 
-
-
 // // DESTROY deck in database. Requires Deck ID
 // deckRoutes.delete('/:id', async (req, res) => {
 //     try {
@@ -80,5 +76,4 @@ deckRoutes.post("/", async (req, res) => {
 //     }
 // });
 
-
-export default deckRoutes;
+module.exports = deckRoutes;
